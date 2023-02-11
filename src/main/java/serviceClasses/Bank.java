@@ -66,8 +66,8 @@ public class Bank {
                 '}';
     }
 
-    public Float getBuyRate (Currency currency){
-        switch (currency){
+    public Float getBuyRate(Currency currency) {
+        switch (currency) {
             case EUR:
                 return this.EUR_buy;
             case USD:
@@ -76,8 +76,8 @@ public class Bank {
         return null;
     }
 
-    public Float getSellRate (Currency currency){
-        switch (currency){
+    public Float getSellRate(Currency currency) {
+        switch (currency) {
             case EUR:
                 return this.EUR_sell;
             case USD:
