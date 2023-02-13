@@ -17,7 +17,10 @@ public class BanksUtil {
     private final Gson GSON = new Gson();
 
     private final String PRIVAT_URL = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
+    private final String MONOBANK_URL = "https://api.monobank.ua/bank/currency";
     static Type typePrivat = new TypeToken<List<PrivatBank>>() {
+    }.getType();
+    static Type typeMono = new TypeToken<List<Monobank>>() {
     }.getType();
 
     public Bank getPrivatAPI() throws IOException, InterruptedException {
@@ -29,6 +32,11 @@ public class BanksUtil {
             }
         }
         return getPrivat(datePrivatBank);
+    }
+
+    public Bank getMonoAPI() throws IOException, InterruptedException {
+        final List<Monobank> dateMono = sendGetBank(URI.create(MONOBANK_URL),typeMono);
+        return getMonobank(dateMono);
     }
 
     public <T> List<T> sendGetBank(URI uri,Type typeBank) throws IOException, InterruptedException {
@@ -52,6 +60,20 @@ public class BanksUtil {
                     bank.setEUR_buy(currency.getBuy());
                     bank.setEUR_sell(currency.getSale());
                     break;
+            }
+        }
+        return bank;
+    }
+
+    public Bank getMonobank(List<Monobank> monobankList) {
+        Bank bank = new Bank();
+        for (Monobank currency : monobankList) {
+            if (currency.getCurrencyCodeA() == 840 && currency.getCurrencyCodeB() == 980) {
+                bank.setUSD_buy(currency.getRateBuy());
+                bank.setUSD_sell(currency.getRateSell());
+            }else if(currency.getCurrencyCodeA() == 978 && currency.getCurrencyCodeB() == 980) {
+                bank.setEUR_buy(currency.getRateBuy());
+                bank.setEUR_sell(currency.getRateSell());
             }
         }
         return bank;
