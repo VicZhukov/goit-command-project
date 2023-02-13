@@ -19,32 +19,23 @@ public enum Banks {
         return bankNameEN;
     }
 
-    public void setBankNameEN(String bankNameEN) {
-        this.bankNameEN = bankNameEN;
-    }
 
     public String getBankNameUA() {
         return bankNameUA;
     }
 
-    public void setBankNameUA(String bankNameUA) {
-        this.bankNameUA = bankNameUA;
-    }
 
-    public boolean isSelect() {
-        return select;
-    }
 
-    public void setSelect(boolean select) {
-        this.select = select;
-    }
 
-    public static Banks convertToEnum(String text) {
-        for (Banks bank : Banks.values()) {
+    public static Banks convertToEnum (String text){
+        for (Banks bank: Banks.values()) {
             if (bank.getBankNameEN().equals(text)) {
                 return bank;
             }
         }
         return null;
     }
+
+
+
 }
