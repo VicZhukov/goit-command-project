@@ -100,7 +100,6 @@ public class Settings {
                 outputSetting.setSelectedBank(parseSelectedBank(v.getSelectedBank()));
                 outputSetting.setSelectedCurrency(parseCurrency(v.getSelectedCurrency()));
                 outputSetting.setNotificationTime(parseNotificationTime(v.getNotificationTime()));
-                outputSetting.setZoneId(parseZoneId(v.getZoneId()));
                 outputMap.put(v.getChatId(), outputSetting);
             });
         }
@@ -140,15 +139,6 @@ public class Settings {
     private NotificationTime parseNotificationTime(String inputStrNotificationTime) {
         for (NotificationTime value : NotificationTime.values()) {
             if (inputStrNotificationTime.equals(value.name())) {
-                return value;
-            }
-        }
-        return null;
-    }
-
-    private ZoneId parseZoneId(String inputStrZoneId) {
-        for (ZoneId value : ZoneId.values()) {
-            if (inputStrZoneId.equals(value.name())) {
                 return value;
             }
         }

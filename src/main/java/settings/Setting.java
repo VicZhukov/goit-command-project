@@ -8,19 +8,19 @@ public class Setting {
     private Banks selectedBank;
     private List<Currency> selectedCurrency;
     private NotificationTime notificationTime;
-    private ZoneId zoneId;
+    private Language language;
 
     public Setting() {
     }
 
     public Setting(Long chatId, NumberOfDecimalPlaces numberOfDecimalPlaces, Banks selectedBank,
-                   List<Currency> selectedCurrency, NotificationTime notificationTime, ZoneId zoneId) {
+                   List<Currency> selectedCurrency, NotificationTime notificationTime, Language language) {
         this.chatId = chatId;
         this.numberOfDecimalPlaces = numberOfDecimalPlaces;
         this.selectedBank = selectedBank;
         this.selectedCurrency = selectedCurrency;
         this.notificationTime = notificationTime;
-        this.zoneId = zoneId;
+        this.language = language;
     }
 
     public void setChatId(Long chatId) {
@@ -63,12 +63,11 @@ public class Setting {
         this.notificationTime = notificationTime;
     }
 
-    public ZoneId getZoneId() {
-        return zoneId;
+    public void setSelectedLanguage(Language language) {
+        this.language = language;
     }
 
-    public void setZoneId(ZoneId zoneId) {
-        this.zoneId = zoneId;
+    public Language getSelectedLanguage() {
+        return language;
     }
-
 }

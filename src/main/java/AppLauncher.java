@@ -12,10 +12,6 @@ public class AppLauncher {
         settings.load();
 
 
-        Timer timer = new Timer(settings);
-        Thread messageInTime = new Thread(timer);
-        messageInTime.start();
-
         CurrencyInfoBot currencyInfoBot = CurrencyInfoBot.getInstance("currencyInfoBot", settings);
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(currencyInfoBot);
