@@ -81,7 +81,7 @@ public class CurrencyInfoBot extends TelegramLongPollingBot {
             userSettings = settings.settingsAllUsers.get(chatId);
         }
         if (userSettings == null) {
-            userSettings = new Setting(chatId, NumberOfDecimalPlaces.TWO, Banks.PRIVAT, Currency.getSelectedCurrencyList(), NotificationTime.NINE, ZoneId.UTC_THREE, Language.UA);
+            userSettings = new Setting(chatId, NumberOfDecimalPlaces.TWO, Banks.PRIVAT, Currency.getSelectedCurrencyList(), NotificationTime.NINE, Language.UA);
             synchronized (monitor) {
                 settings.settingsAllUsers.put(chatId, userSettings);
             }
@@ -92,7 +92,7 @@ public class CurrencyInfoBot extends TelegramLongPollingBot {
             if (commandEntity.isPresent()) {
                 String command = message.getText().substring(commandEntity.get().getOffset(), commandEntity.get().getLength());
                 if (command.equals(Buttons.START.getNameEN())) {
-                    printMessage(chatId, menu.keyboardLanguage(chatId), "Будь ласка оберіть мову. Please select language.\n" + "Proszę wybrać język. Prosím vyberte jazyk.\n" + "Выбери пожалуйста язык.");
+                    printMessage(chatId, menu.keyboardLanguage(chatId), "Будь ласка оберіть мову. Please select language.");
                 }
             }
         } else {
@@ -107,7 +107,7 @@ public class CurrencyInfoBot extends TelegramLongPollingBot {
             userSettings = settings.settingsAllUsers.get(chatId);
         }
         if (userSettings == null) {
-            userSettings = new Setting(chatId, NumberOfDecimalPlaces.TWO, Banks.PRIVAT, Currency.getSelectedCurrencyList(), NotificationTime.NINE, ZoneId.UTC_THREE, Language.UA);
+            userSettings = new Setting(chatId, NumberOfDecimalPlaces.TWO, Banks.PRIVAT, Currency.getSelectedCurrencyList(), NotificationTime.NINE, Language.UA);
         }
         menu = getMenu(userSettings);
 
@@ -117,7 +117,6 @@ public class CurrencyInfoBot extends TelegramLongPollingBot {
         checkDecimalPlacesMenu(buttonQuery, userSettings);
         checkNotificationMenu(buttonQuery, userSettings);
         checkCurrencyMenu(buttonQuery, userSettings);
-        checkZoneIdMenu(buttonQuery, userSettings);
         checkLanguageSettingsMenu(buttonQuery, userSettings);
     }
 
@@ -129,13 +128,6 @@ public class CurrencyInfoBot extends TelegramLongPollingBot {
             currentCurrencies.add(enumData);
         }
         updateMessage(buttonQuery, menu.keyboardCurrency(buttonQuery.getMessage().getChatId()));
-    }
-
-    private void saveSelectZoneId(CallbackQuery buttonQuery, ZoneId enumData, Setting userSettings) throws TelegramApiException {
-        if (!userSettings.getZoneId().getNameZone().equals(enumData.getNameZone())) {
-            userSettings.setZoneId(enumData);
-            updateMessage(buttonQuery, menu.keyboardZoneId(buttonQuery.getMessage().getChatId()));
-        }
     }
 
     private void saveSelectNumDecPlaces(CallbackQuery buttonQuery, NumberOfDecimalPlaces enumData, Setting userSettings) throws TelegramApiException {
