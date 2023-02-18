@@ -16,6 +16,9 @@ public class BanksUtil {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private final Gson GSON = new Gson();
 
+    private final String PRIVAT_URL = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
+    private final String MONOBANK_URL = "https://api.monobank.ua/bank/currency";
+    private final String NBU_URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json";
     static Type typePrivat = new TypeToken<List<PrivatBank>>() {
     }.getType();
     static Type typeMono = new TypeToken<List<Monobank>>() {
@@ -24,19 +27,22 @@ public class BanksUtil {
     }.getType();
 
     public Bank getPrivatAPI() throws IOException, InterruptedException {
-        String PRIVAT_URL = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
         final List<PrivatBank> datePrivatBank = sendGetBank(URI.create(PRIVAT_URL),typePrivat);
+        for (PrivatBank currency : datePrivatBank) {
+            if (currency.getCcy().equals("USD")) {
+                datePrivatBank.add(currency);
+                break;
+            }
+        }
         return getPrivat(datePrivatBank);
     }
 
     public Bank getMonoAPI() throws IOException, InterruptedException {
-        String MONOBANK_URL = "https://api.monobank.ua/bank/currency";
         final List<Monobank> dateMono = sendGetBank(URI.create(MONOBANK_URL),typeMono);
         return getMonobank(dateMono);
     }
 
     public Bank getNBUAPI() throws IOException, InterruptedException {
-        String NBU_URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json";
         final List<NbuBank> dateNBU = sendGetBank(URI.create(NBU_URL),typeNBU);
         return getNbu(dateNBU);
     }
