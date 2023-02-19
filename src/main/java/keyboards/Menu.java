@@ -285,7 +285,33 @@ public abstract class Menu {
 
         return InlineKeyboardMarkup.builder().keyboard(keyboard).build();
     }
-
+    public InlineKeyboardMarkup keyboardLanguage(long chatId) {
+        Setting userSetting = settings.settingsAllUsers.get(chatId);
+        Language selectedLang = userSetting.getSelectedLanguage();
+        List<List<InlineKeyboardButton>> keyboardMenuLang = new ArrayList<>();
+        List<InlineKeyboardButton> keyboardMSetRow1 = new ArrayList<>();
+        List<InlineKeyboardButton> keyboardMSetRow2 = new ArrayList<>();
+        List<InlineKeyboardButton> keyboardMSetRow3 = new ArrayList<>();
+        InlineKeyboardButton buttonUA = InlineKeyboardButton.builder()
+                .text(Language.UA.getLangFlag() + getButtonStatus(Language.UA, selectedLang))
+                .callbackData(Language.UA.getLangName())
+                .build();
+        InlineKeyboardButton buttonEN = InlineKeyboardButton.builder()
+                .text(Language.EN.getLangFlag() + getButtonStatus(Language.EN, selectedLang))
+                .callbackData(Language.EN.getLangName())
+                .build();
+        InlineKeyboardButton buttonStart = InlineKeyboardButton.builder()
+                .text(Language.translate("Підтвердити", selectedLang))
+                .callbackData(Buttons.START.getNameEN())
+                .build();
+        keyboardMSetRow1.add(buttonUA);
+        keyboardMSetRow2.add(buttonEN);
+        keyboardMSetRow3.add(buttonStart);
+        keyboardMenuLang.add(keyboardMSetRow1);
+        keyboardMenuLang.add(keyboardMSetRow2);
+        keyboardMenuLang.add(keyboardMSetRow3);
+        return InlineKeyboardMarkup.builder().keyboard(keyboardMenuLang).build();
+    }
     public InlineKeyboardMarkup keyboardLanguageSet(long chatId) {
         Setting userSetting = settings.settingsAllUsers.get(chatId);
         Language selectedLang = userSetting.getSelectedLanguage();
