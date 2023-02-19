@@ -92,6 +92,7 @@ public abstract class Menu {
     public InlineKeyboardMarkup keyboardBanks(long chatId) {
         Setting userSetting = settings.settingsAllUsers.get(chatId);
         Banks selectedBank = userSetting.getSelectedBank();
+
         List<List<InlineKeyboardButton>> keyboardMenuBanks = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow2 = new ArrayList<>();
