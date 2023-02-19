@@ -16,24 +16,20 @@ public class BanksUtil {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private final Gson GSON = new Gson();
 
-    private final String PRIVAT_URL = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
-    private final String MONOBANK_URL = "https://api.monobank.ua/bank/currency";
+    private final String PRIVAT_URL = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11";
     private final String NBU_URL = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json";
+    private final String MONOBANK_URL = "https://api.monobank.ua/bank/currency";
+
+
     static Type typePrivat = new TypeToken<List<PrivatBank>>() {
     }.getType();
-    static Type typeMono = new TypeToken<List<Monobank>>() {
-    }.getType();
     static Type typeNBU = new TypeToken<List<NbuBank>>() {
+    }.getType();
+    static Type typeMono = new TypeToken<List<Monobank>>() {
     }.getType();
 
     public Bank getPrivatAPI() throws IOException, InterruptedException {
         final List<PrivatBank> datePrivatBank = sendGetBank(URI.create(PRIVAT_URL),typePrivat);
-        for (PrivatBank currency : datePrivatBank) {
-            if (currency.getCcy().equals("USD")) {
-                datePrivatBank.add(currency);
-                break;
-            }
-        }
         return getPrivat(datePrivatBank);
     }
 
