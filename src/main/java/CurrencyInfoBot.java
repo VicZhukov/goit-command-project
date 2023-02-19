@@ -48,12 +48,12 @@ public class CurrencyInfoBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "";
+        return new BotInfo().getBotName();
     }
 
     @Override
     public String getBotToken() {
-        return "";
+        return new BotInfo().getBotToken();
     }
 
     @Override
