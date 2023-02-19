@@ -12,9 +12,7 @@ public abstract class Menu {
 
     private final Settings settings;
 
-    public abstract InlineKeyboardMarkup keyboardSettings(Setting setting);
 
-    public abstract InlineKeyboardMarkup keyboardStart();
 
     public Menu(Settings settings) {
         this.settings = settings;
@@ -351,6 +349,13 @@ public abstract class Menu {
     }
 
     private String getButtonStatus(int current, int selected) {
+        if (current == selected) {
+            return "✅";
+        }
+        return "";
+    }
+
+    private String getButtonStatus(Language current, Language selected) {
         if (current == selected) {
             return "✅";
         }
