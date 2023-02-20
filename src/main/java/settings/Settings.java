@@ -49,7 +49,7 @@ public class Settings {
             messageToUser.append(Language.translate("Курс купівлі ", language)).append(currency.getCurrencyName()).append(" - ").append(bankInfo.getBuyRate(currency) == 0 ? Language.translate("немає купівлі", language) : format("%." + numberDecPlaces + "f", bankInfo.getBuyRate(currency)) + addCurName(currency)).append(" UAH").append("\n");
             messageToUser.append(Language.translate("Курс продажу ", language)).append(currency.getCurrencyName()).append(" - ").append(bankInfo.getSellRate(currency) == 0 ? Language.translate("немає продажу", language) : format("%." + numberDecPlaces + "f", bankInfo.getSellRate(currency)) + addCurName(currency)).append(" UAH").append("\n");
         }
-        messageToUser.append(Language.translate("Такий курс то є мерзость, ну реально мерзость",language)).append("\n");
+        messageToUser.append(Language.translate("Такий курс то є мерзость, ну реально мерзость.",language)).append("\n");
 
         return messageToUser.toString();
     }

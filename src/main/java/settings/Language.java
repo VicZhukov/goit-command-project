@@ -109,10 +109,10 @@ public enum Language {
                     default:
                         return text;
                 }
-            case "Такий курс то є мерзость, ну реально мерзость":
+            case "Такий курс то є мерзость, ну реально мерзость.":
                 switch (language) {
                     case EN:
-                        return "This course is fullshit, realy";
+                        return "This course is fullshit, realy.";
                     default:
                         return text;
                 }
