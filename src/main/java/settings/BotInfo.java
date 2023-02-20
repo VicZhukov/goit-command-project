@@ -1,8 +1,8 @@
 package settings;
 
 public class BotInfo {
-    private String botName = "https://t.me/rcuabot";
-    private String botToken = "6214978585:AAGRUz2s0aGd7NHDLBjgV9I3h3eNqMWzM0o";
+    private String botName = "t.me/AnotherCurrencyBot";
+    private String botToken = "6234131147:AAF7PHC75rw9sJBK688id3CYZC8lGRQZDIg";
 
     public String getBotName() {
         return botName;
