@@ -58,4 +58,11 @@ public class IntermediateSetting {
     public String getZoneId() {
         return zoneId;
     }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    public String getLanguage() {
+        return language;
+    }
 }
