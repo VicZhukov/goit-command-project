@@ -26,6 +26,18 @@ public enum NotificationTime {
         return time;
     }
 
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
+
 
     public static NotificationTime convertToEnum(String text) {
         for (NotificationTime time : NotificationTime.values()) {

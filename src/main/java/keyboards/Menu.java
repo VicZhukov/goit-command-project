@@ -48,7 +48,6 @@ public abstract class Menu {
         List<InlineKeyboardButton> keyboardMSetRow3 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow4 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow5 = new ArrayList<>();
-        List<InlineKeyboardButton> keyboardMSetRow6 = new ArrayList<>();
         InlineKeyboardButton buttonNumOfDecPlaces = InlineKeyboardButton.builder()
                 .text(Buttons.NUM_DECIMAL_PLACES.getNameUA() + " (" + setting.getNumberOfDecimalPlaces() + ")")
                 .callbackData(Buttons.NUM_DECIMAL_PLACES.getNameEN())
@@ -76,13 +75,12 @@ public abstract class Menu {
         keyboardMSetRow2.add(buttonBank);
         keyboardMSetRow3.add(buttonCurrency);
         keyboardMSetRow4.add(buttonNotificationTime);
-        keyboardMSetRow6.add(buttonBack);
+        keyboardMSetRow5.add(buttonBack);
         keyboardMenuSettings.add(keyboardMSetRow1);
         keyboardMenuSettings.add(keyboardMSetRow2);
         keyboardMenuSettings.add(keyboardMSetRow3);
         keyboardMenuSettings.add(keyboardMSetRow4);
         keyboardMenuSettings.add(keyboardMSetRow5);
-        keyboardMenuSettings.add(keyboardMSetRow6);
 
         return InlineKeyboardMarkup.builder().keyboard(keyboardMenuSettings).build();
     }
@@ -319,9 +317,6 @@ public abstract class Menu {
         List<InlineKeyboardButton> keyboardMSetRow1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow2 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow3 = new ArrayList<>();
-        List<InlineKeyboardButton> keyboardMSetRow4 = new ArrayList<>();
-        List<InlineKeyboardButton> keyboardMSetRow5 = new ArrayList<>();
-        List<InlineKeyboardButton> keyboardMSetRow6 = new ArrayList<>();
         InlineKeyboardButton buttonUA = InlineKeyboardButton.builder()
                 .text(Language.UA.getLangFlag() + getButtonStatus(Language.UA, selectedLang))
                 .callbackData(Language.UA.getLangNameSet())
@@ -340,15 +335,12 @@ public abstract class Menu {
                 .build();
         keyboardMSetRow1.add(buttonUA);
         keyboardMSetRow2.add(buttonEN);
-        keyboardMSetRow6.add(buttonHome);
-        keyboardMSetRow6.add(buttonBackToSetting);
+        keyboardMSetRow3.add(buttonHome);
+        keyboardMSetRow3.add(buttonBackToSetting);
 
         keyboardMenuLang.add(keyboardMSetRow1);
         keyboardMenuLang.add(keyboardMSetRow2);
         keyboardMenuLang.add(keyboardMSetRow3);
-        keyboardMenuLang.add(keyboardMSetRow4);
-        keyboardMenuLang.add(keyboardMSetRow5);
-        keyboardMenuLang.add(keyboardMSetRow6);
 
         return InlineKeyboardMarkup.builder().keyboard(keyboardMenuLang).build();
     }

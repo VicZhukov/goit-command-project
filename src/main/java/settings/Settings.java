@@ -31,31 +31,24 @@ public class Settings {
     public String getInfo(Long chatId) {
         StringBuilder messageToUser = new StringBuilder();
         Setting userSetting = settingsAllUsers.get(chatId);
-
+        Language language = userSetting.getSelectedLanguage();
         String bankName;
-        if (userSetting.getSelectedLanguage().equals(Language.UA)){
-            bankName = userSetting.getSelectedBank().getBankNameUA();
-        } else {
-            bankName = userSetting.getSelectedBank().getBankNameEN();
+        switch (language) {
+            case UA:
+                bankName = userSetting.getSelectedBank().getBankNameUA();
+                break;
+            default:
+                bankName = userSetting.getSelectedBank().getBankNameEN();
+                break;
         }
-
         messageToUser.append(bankName).append("\n");
         int numberDecPlaces = userSetting.getNumberOfDecimalPlaces();
         List<Currency> currencies = userSetting.getSelectedCurrency();
         Bank bankInfo = currencyDataBase.getCurrentInfo(userSetting.getSelectedBank());
         for (Currency currency : currencies) {
-            messageToUser.append(Language.translate("Курс купівлі ", userSetting.getSelectedLanguage()))
-                    .append(currency.getCurrencyName())
-                    .append(" - ")
-                    .append(bankInfo.getBuyRate(currency) == 0 ?
-                            Language.translate("немає купівлі", userSetting.getSelectedLanguage())
-                            : format("%." + numberDecPlaces + "f", bankInfo.getBuyRate(currency)) + " UAH"+"\n");
-            messageToUser.append(Language.translate("Курс продажу ",userSetting.getSelectedLanguage()))
-                    .append(currency.getCurrencyName())
-                    .append(" - ")
-                    .append(bankInfo.getSellRate(currency) == 0 ?
-                            Language.translate("немає продажу", userSetting.getSelectedLanguage())
-                            : format("%." + numberDecPlaces + "f", bankInfo.getSellRate(currency)) + " UAH"+"\n");}
+            messageToUser.append(Language.translate("Курс купівлі ", language)).append(currency.getCurrencyName()).append(" - ").append(bankInfo.getBuyRate(currency) == 0 ? Language.translate("немає купівлі", language) : format("%." + numberDecPlaces + "f", bankInfo.getBuyRate(currency)) + addCurName(currency)).append("\n");
+            messageToUser.append(Language.translate("Курс продажу ", language)).append(currency.getCurrencyName()).append(" - ").append(bankInfo.getSellRate(currency) == 0 ? Language.translate("немає продажу", language) : format("%." + numberDecPlaces + "f", bankInfo.getSellRate(currency)) + addCurName(currency)).append("\n");
+        }
         return messageToUser.toString();
     }
 
@@ -114,6 +107,7 @@ public class Settings {
                 outputSetting.setSelectedBank(parseSelectedBank(v.getSelectedBank()));
                 outputSetting.setSelectedCurrency(parseCurrency(v.getSelectedCurrency()));
                 outputSetting.setNotificationTime(parseNotificationTime(v.getNotificationTime()));
+                outputSetting.setSelectedLanguage(parseLanguage(v.getLanguage()));
                 outputMap.put(v.getChatId(), outputSetting);
             });
         }
@@ -157,6 +151,23 @@ public class Settings {
             }
         }
         return null;
+    }
+
+    private Language parseLanguage(String inputStrLang) {
+        for (Language value : Language.values()) {
+            if (inputStrLang.equals(value.name())) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    private String addCurName(Currency currency) {
+        switch (currency) {
+            case USD:
+            case EUR:
+        }
+        return "";
     }
 
 }
