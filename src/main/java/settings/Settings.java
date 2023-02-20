@@ -31,15 +31,14 @@ public class Settings {
     public String getInfo(Long chatId) {
         StringBuilder messageToUser = new StringBuilder();
         Setting userSetting = settingsAllUsers.get(chatId);
+
         String bankName = "";
+
         if (userSetting.getSelectedLanguage().equals(Language.UA)){
             bankName = userSetting.getSelectedBank().getBankNameUA();
         } else {
             bankName = userSetting.getSelectedBank().getBankNameEN();
         }
-
-
-
 
         messageToUser.append(bankName).append("\n");
         int numberDecPlaces = userSetting.getNumberOfDecimalPlaces();
@@ -58,11 +57,6 @@ public class Settings {
                     .append(bankInfo.getSellRate(currency) == 0 ?
                             Language.translate("немає продажу", userSetting.getSelectedLanguage())
                             : format("%." + numberDecPlaces + "f", bankInfo.getSellRate(currency)) + " UAH"+"\n");
-//            printMessage(chatId, Language.translate("Будь ласка впишіть /start або натисніть кнопку.", userSettings.getSelectedLanguage()));
-
-
-
-
         }
         return messageToUser.toString();
     }
