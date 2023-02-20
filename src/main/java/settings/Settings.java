@@ -31,16 +31,38 @@ public class Settings {
     public String getInfo(Long chatId) {
         StringBuilder messageToUser = new StringBuilder();
         Setting userSetting = settingsAllUsers.get(chatId);
+        String bankName = "";
+        if (userSetting.getSelectedLanguage().equals(Language.UA)){
+            bankName = userSetting.getSelectedBank().getBankNameUA();
+        } else {
+            bankName = userSetting.getSelectedBank().getBankNameEN();
+        }
 
-        String bankName = userSetting.getSelectedBank().getBankNameUA();
+
+
 
         messageToUser.append(bankName).append("\n");
         int numberDecPlaces = userSetting.getNumberOfDecimalPlaces();
         List<Currency> currencies = userSetting.getSelectedCurrency();
         Bank bankInfo = currencyDataBase.getCurrentInfo(userSetting.getSelectedBank());
         for (Currency currency : currencies) {
-            messageToUser.append("Курс купівлі ").append(currency.getCurrencyName()).append(" - ").append(bankInfo.getBuyRate(currency) == 0 ? "немає купівлі" : format("%." + numberDecPlaces + "f", bankInfo.getBuyRate(currency)) + " UAH"+"\n");
-            messageToUser.append("Курс продажу ").append(currency.getCurrencyName()).append(" - ").append(bankInfo.getSellRate(currency) == 0 ? "немає продажу" : format("%." + numberDecPlaces + "f", bankInfo.getSellRate(currency)) + " UAH"+"\n");
+            messageToUser.append(Language.translate("Курс купівлі ", userSetting.getSelectedLanguage()))
+                    .append(currency.getCurrencyName())
+                    .append(" - ")
+                    .append(bankInfo.getBuyRate(currency) == 0 ?
+                            Language.translate("немає купівлі", userSetting.getSelectedLanguage())
+                            : format("%." + numberDecPlaces + "f", bankInfo.getBuyRate(currency)) + " UAH"+"\n");
+            messageToUser.append(Language.translate("Курс продажу ",userSetting.getSelectedLanguage()))
+                    .append(currency.getCurrencyName())
+                    .append(" - ")
+                    .append(bankInfo.getSellRate(currency) == 0 ?
+                            Language.translate("немає продажу", userSetting.getSelectedLanguage())
+                            : format("%." + numberDecPlaces + "f", bankInfo.getSellRate(currency)) + " UAH"+"\n");
+//            printMessage(chatId, Language.translate("Будь ласка впишіть /start або натисніть кнопку.", userSettings.getSelectedLanguage()));
+
+
+
+
         }
         return messageToUser.toString();
     }
